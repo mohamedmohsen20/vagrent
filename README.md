@@ -1,0 +1,81 @@
+# vagrent
+
+cli:
+#get images from vagrant cloud https://app.vagrantup.com/boxes/search
+
+$ vagrant init "hashicorp/bionic64"
+
+$ vagrent global-status   //all running
+
+$ vagrent status // local dir
+
+$vagrent up
+
+$ vagrent halt //to stop instance
+
+$ vagrent reload //when instance up and you change some config need to apply the new config
+
+
+Vagrant Sync Directories:
+
+$ vagrant ssh 
+
+#code
+  # Share an additional folder to the guest VM. The first argument is
+  # the path on the host to the actual folder. The second argument is
+  # the path on the guest to mount the folder. And the optional third
+  # argument is a set of non-required options.
+   config.vm.synced_folder "src", "/vagrant_data"
+
+
+#cpu and RAM
+ #
+   config.vm.provider "virtualbox" do |vb|
+  #   # Display the VirtualBox GUI when booting the machine
+  #   vb.gui = true
+  #
+  #   # Customize the amount of memory on the VM:
+     vb.memory = "1024"
+     vb.cpus = 1
+   end
+  #
+
+#network
+
+  # Create a private network, which allows host-only access to the machine
+  # using a specific IP.
+  #config.vm.network "private_network", ip: "192.168.33.10"
+
+  # Create a public network, which generally matched to bridged network.
+  # Bridged networks make the machine appear as another physical device on
+  # your network.
+  config.vm.network "public_network"
+
+#Provisioning  ---> like a user data script in AWS
+$ vagrant up ---> cli start firt time Provisioning
+$ vagrant reload --provision   ---> when just need to rerun provision
+
+config.vm.provision "shell", inline: <<-SHELL
+apt-get update
+sudo apt-get install -y apache2 
+echo "hello mohsen" >  /var/www/html
+SHELL
+
+------------------------------
+39. Website Setup
+
+https://www.tooplate.com/
+
+$ apt-get install -y apache2 unzip wget
+$ unzip x.zip
+$ cp -r x /var/www/html/
+$ systemctl restart apache2
+
+
+-------------------------
+40. Website Setup, Wordpress
+
+$ cd Wordpress
+$ vagrant init "ubuntu/bionic64"
+
+https://ubuntu.com/tutorials/install-and-configure-wordpress#1-overview
