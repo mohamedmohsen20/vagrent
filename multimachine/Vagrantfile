@@ -1,0 +1,12 @@
+Vagrant.configure("2") do |config|
+    #global setting will execute the command ib both 
+    config.vm.provision "shell", inline: "echo Hello"
+  
+    config.vm.define "web01" do |web01|
+      web01.vm.box = "ubuntu/bionic64"
+    end
+  
+    config.vm.define "db" do |db|
+      db.vm.box = "mysql"
+    end
+  end
